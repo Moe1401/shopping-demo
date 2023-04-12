@@ -1,3 +1,30 @@
+body{
+    background-color: blue;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.content-wrapper{
+    padding: 10px 30px;
+}
+p{
+    text-align: justify;
+}
+h1{
+    text-align: center;
+}
+.highlight{
+    font-weight: 700;
+    color: yellow;
+}
+h1, h2{
+    font-weight: 400;
+}
+
+ul li{
+    list-style-type: square;
+    margin-bottom: 10px;
+    margin-left: 50px;
+}
+
 .navbar {
     background-color: rgb(28, 130, 97);
     padding: 15px;
@@ -14,4 +41,3 @@
 #cart-image {
     margin-right: 5px;
 }
-
