@@ -24,3 +24,20 @@ ul li{
     margin-bottom: 10px;
     margin-left: 50px;
 }
+
+.navbar {
+    background-color: rgb(28, 130, 97);
+    padding: 15px;
+}
+
+.navbar-brand {
+    font-size: xx-large;
+}
+
+.nav-link {
+    font-size: x-large;
+}
+
+#cart-image {
+    margin-right: 5px;
+}
