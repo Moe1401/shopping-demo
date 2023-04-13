@@ -12,11 +12,15 @@
 //**store items in storage
 
 
-//API - link https://bestbuyapis.github.io/api-documentation/#response-format
+//API -
 
 //variables going to HTML tags
+var requestUrl = 'https://fakestoreapi.com/products';
 var cardBox = document.getElementById('.all-cards');
 
+
+var allFetchedProducts = [];
+var productList = [];
 var shoppingCart = [];
 var product;
 
@@ -27,19 +31,48 @@ var product;
     //display thank you/continue shopping.
 
 //};
-fetch('https://fakestoreapi.com/products') //API for data
-            .then(res=>res.json()) 
-            .then(json=>console.log(json))
+function getApi(requestUrl) {
+  fetch(requestUrl)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    console.log(data);
+    allFetchedProducts = data;
+    generateCards()
 
+  });
+}
 
+getApi(requestUrl);
 
 function generateCards(){
     var sectionContainer = document.createElement("section")
     sectionContainer.setAttribute("class", "all-cards")
+
+    for(var i = 0; i < 6; i++){ 
+      var productName = document.createElement()
+    }
+      
+    
+    
+    /*for (var i = 0; i < data.length; i++) {
+        var userName = document.createElement('h3');   creating tags for product name, price, image, discription
+        var issueTitle = document.createElement('p');   to display dynamically.
+        userName.textContent = data[i].user.login;    
+        issueTitle.textContent = data[i].title;
+        issueContainer.append(userName);
+        issueContainer.append(issueTitle);
+      }*/
+
+
+    // for the objects in the allFetchedProducts array
+    // i < 6
+    // set details about the product based on the object at allFetchedProducts[i]
+    // productList.push(allFetchedProducts[i])
     
   
 }
-generateCards();
 
 //function weatherAPI(){
     //weather API info
