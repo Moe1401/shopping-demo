@@ -27,21 +27,17 @@ var product;
     //display thank you/continue shopping.
 
 //};
+fetch('https://fakestoreapi.com/products') //API for data
+            .then(res=>res.json()) 
+            .then(json=>console.log(json))
+
+
+
 function generateCards(){
     var sectionContainer = document.createElement("section")
     sectionContainer.setAttribute("class", "all-cards")
     
-    
-
-    
-
-
-   // <div class="card1">
-           // <img src="" alt="" ></img>
-          //  <h2>Title of Product</h2>
-         //   <p>Description of Product</p>
-         //   <button>Buy Product</button>
-        //</div>
+  
 }
 generateCards();
 
