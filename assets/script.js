@@ -1,4 +1,5 @@
 var checkoutBtnEl = document.querySelector('.checkout-btn');
+var checkoutCloseEl = document.querySelector('.btn-close');
 
 ////nav bar
  //location
@@ -76,6 +77,12 @@ function generateCards(){
   
 }
 
+
+// ** TODO ** when we close form, get rid of values entered
+// event listener to close the checkout form
+checkoutCloseEl.addEventListener('click', function() {
+  document.getElementById('card-form').style.display = "none";
+});
 
 // event listener to pull up form when clicking checkout button
 checkoutBtnEl.addEventListener('click', function() {
