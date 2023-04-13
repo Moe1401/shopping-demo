@@ -35,10 +35,45 @@
         add form to input shipping info
         button to checkout
      -->
-    <section>
-
-        <button>Checkout</button>
-    </section>
+    <!-- Bootstrap rows that hold the cart -->
+    <main class="container my-5">
+        <div class="row justify-content-center">
+            <div id="cart-container" class="col-12 col-sm-8 col-lg-6">
+                <h3>Your Shopping Cart</h3>
+                <table id="cart" class="table">
+                    <thead id="cart-header">
+                      <tr>
+                        <th scope="col">Product</th> 
+                        <th scope="col"></th>
+                        <th scope="col">Price</th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody id="cart-rows">
+                      <tr>
+                        <td><img src="https://cdn.shopify.com/s/files/1/2382/0223/products/42127-1527888046_700x700.jpg?v=1571614304" height="128" width="128"></td>
+                        <td>Chew Toy Deluxe</td>
+                        <td>$7.99</td>
+                        <td><button>Remove</button></td>
+                      </tr>
+                      <tr>
+                        <td><img src="https://athome.starbucks.com/sites/default/files/2022-05/CAH_PDP_Pike_1842x1542_Ground_shadow.png" height="128" width="128"></td>
+                        <td>Starbucks Pike Place Coffee</td>
+                        <td>$9.99</td>
+                        <td><button>Remove</button></td>
+                      </tr>
+                      <tr>
+                        <td><img src="https://m.media-amazon.com/images/I/61Eqdj6HCML._SL1500_.jpg" height="128" width="128"></td>
+                        <td>Tube of Hand Cream</td>
+                        <td>$1.99</td>
+                        <td><button>Remove</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                <button>Checkout</button>
+            </div>
+        </div>  
+    </main>
 
     <!-- footer -->
     <footer class="card-footer container-fluid">
