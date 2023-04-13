@@ -32,12 +32,32 @@ ul li{
 
 .navbar-brand {
     font-size: xx-large;
+    color: black;
 }
 
 .nav-link {
     font-size: x-large;
+    color: black;
 }
 
 #cart-image {
     margin-right: 5px;
+}
+
+#card-form {
+  display: none;  
+  background-color: bisque;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  padding: 50px;
+  width: 30%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%)
+}
+
+.btn {
+  margin-top: 10px;  
 }

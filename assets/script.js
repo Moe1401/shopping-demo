@@ -1,3 +1,5 @@
+var checkoutBtnEl = document.querySelector('.checkout-btn');
+
 ////nav bar
  //location
   //**assign to local storage for cart
@@ -44,6 +46,13 @@ function generateCards(){
         //</div>
 }
 generateCards();
+
+
+// event listener to pull up form when clicking checkout button
+checkoutBtnEl.addEventListener('click', function() {
+  document.getElementById("card-form").style.display = "block";
+});
+
 
 //function weatherAPI(){
     //weather API info
