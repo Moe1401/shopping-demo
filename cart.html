@@ -31,59 +31,99 @@
 
     <!-- shopping cart contents -->
     <!-- TO-DO: 
-        delete items? (can be handled via JavaScript)
-        add form to input shipping info
-        button to checkout
+        function delete buttons
+        functional checkout button
+        store form info locally?
      -->
-    <section>
-        <div id="card-form">
-            <form id="full-form">
-                <div class="form-row">
-                  <div class="col-md-12 mb-3">
-                    <label for="validationDefault01">First name</label>
-                    <input type="text" class="form-control" id="validationDefault01" placeholder="First name" value="Mark" required>
-                  </div>
-                  <div class="col-md-12 mb-3">
-                    <label for="validationDefault02">Last name</label>
-                    <input type="text" class="form-control" id="validationDefault02" placeholder="Last name" value="Otto" required>
-                  </div>
-                  <div class="col-md-12 mb-3">
-                    <label for="validationDefaultUsername">Username</label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroupPrepend2">@</span>
+
+    <!-- Bootstrap rows that hold the cart -->
+    <main class="container my-5">
+        <div class="row justify-content-center">
+            <div id="cart-container" class="col-12 col-sm-8 col-lg-6">
+                <h3>Your Shopping Cart</h3>
+                <table id="cart" class="table">
+                    <thead id="cart-header">
+                      <tr>
+                        <th scope="col">Product</th> 
+                        <th scope="col"></th>
+                        <th scope="col">Price</th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody id="cart-rows">
+                      <tr>
+                        <td><img src="https://cdn.shopify.com/s/files/1/2382/0223/products/42127-1527888046_700x700.jpg?v=1571614304" height="128" width="128"></td>
+                        <td>Chew Toy Deluxe</td>
+                        <td>$7.99</td>
+                        <td><button>Remove</button></td>
+                      </tr>
+                      <tr>
+                        <td><img src="https://athome.starbucks.com/sites/default/files/2022-05/CAH_PDP_Pike_1842x1542_Ground_shadow.png" height="128" width="128"></td>
+                        <td>Starbucks Pike Place Coffee</td>
+                        <td>$9.99</td>
+                        <td><button>Remove</button></td>
+                      </tr>
+                      <tr>
+                        <td><img src="https://m.media-amazon.com/images/I/61Eqdj6HCML._SL1500_.jpg" height="128" width="128"></td>
+                        <td>Tube of Hand Cream</td>
+                        <td>$1.99</td>
+                        <td><button>Remove</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                <button>Checkout</button>
+            </div>
+        </div>  
+        
+        <!-- shipping info form; coded by Peter -->
+        <section>
+            <div id="card-form">
+                <form id="full-form">
+                    <div class="form-row">
+                      <div class="col-md-12 mb-3">
+                        <label for="validationDefault01">First name</label>
+                        <input type="text" class="form-control" id="validationDefault01" placeholder="First name" value="Mark" required>
                       </div>
-                      <input type="text" class="form-control" id="validationDefaultUsername" placeholder="Username" aria-describedby="inputGroupPrepend2" required>
+                      <div class="col-md-12 mb-3">
+                        <label for="validationDefault02">Last name</label>
+                        <input type="text" class="form-control" id="validationDefault02" placeholder="Last name" value="Otto" required>
+                      </div>
+                      <div class="col-md-12 mb-3">
+                        <label for="validationDefaultUsername">Username</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                          </div>
+                          <input type="text" class="form-control" id="validationDefaultUsername" placeholder="Username" aria-describedby="inputGroupPrepend2" required>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="col-md-12 mb-3">
-                    <label for="validationDefault03">City</label>
-                    <input type="text" class="form-control" id="validationDefault03" placeholder="City" required>
-                  </div>
-                  <div class="col-md-12 mb-3">
-                    <label for="validationDefault04">State</label>
-                    <input type="text" class="form-control" id="validationDefault04" placeholder="State" required>
-                  </div>
-                  <div class="col-md-12 mb-3">
-                    <label for="validationDefault05">Zip</label>
-                    <input type="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
-                    <label class="form-check-label" for="invalidCheck2">
-                      Agree to terms and conditions
-                    </label>
-                  </div>
-                </div>
-                <button class="btn btn-primary" type="submit">Submit form</button>
-              </form>
-        </div>
-        <button class="checkout-btn">Checkout</button>
-    </section>
+                    <div class="form-row">
+                      <div class="col-md-12 mb-3">
+                        <label for="validationDefault03">City</label>
+                        <input type="text" class="form-control" id="validationDefault03" placeholder="City" required>
+                      </div>
+                      <div class="col-md-12 mb-3">
+                        <label for="validationDefault04">State</label>
+                        <input type="text" class="form-control" id="validationDefault04" placeholder="State" required>
+                      </div>
+                      <div class="col-md-12 mb-3">
+                        <label for="validationDefault05">Zip</label>
+                        <input type="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                        <label class="form-check-label" for="invalidCheck2">
+                          Agree to terms and conditions
+                        </label>
+                      </div>
+                    </div>
+                  </form>
+            </div>
+        </section>
+    </main>
 
     <!-- footer -->
     <footer class="card-footer container-fluid">
