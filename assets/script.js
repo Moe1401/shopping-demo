@@ -2,14 +2,14 @@ var requestUrl = 'https://fakestoreapi.com/products';
 var checkoutBtnEl = document.querySelector('.checkout-btn');
 var checkoutCloseEl = document.querySelector('#card-form');
 var products = document.querySelector('#products');
-var addToCartBtn = document.querySelector('.btn');
+var addToCartBtn;
 
 var userInputLocal;
 var cardBox = document.getElementById('.all-cards');
 
 var allFetchedProducts = [];
 var productList = [];
-var shoppingCartLocal = [];
+var shoppingCartLocal;
 var product;
 
 //function start(){}
@@ -32,8 +32,28 @@ function getApi(requestUrl) {
   });
 }
 function saveToLocalStorage(event){
-//store pro info then trans to 2nd page.
-event.preventDefault();
+//store prod info then trans to 2nd page.
+ //are things in the cart? appending to array or push
+    //push item into an array then,
+    //add item to cart. (shoppingCart and product var.. maybe...)
+    
+  event.preventDefault();
+  var parentElement = event.target.parentElement.id;
+  console.log(parentElement)
+  console.log(allFetchedProducts)
+  var productToBeSaved = allFetchedProducts.find(product => product.id == parentElement)
+
+  console.log(productToBeSaved)
+  shoppingCartLocal = JSON.parse(localStorage.getItem("cart-products"))
+  if (shoppingCartLocal == null) {
+    shoppingCartLocal = [];
+  }
+  shoppingCartLocal.push(productToBeSaved)
+  localStorage.setItem('cart-products', JSON.stringify(shoppingCartLocal) )
+  console.log(shoppingCartLocal)
+  
+
+
 }
 
 getApi(requestUrl);
@@ -41,25 +61,33 @@ getApi(requestUrl);
 function generateCards(){
 
     for(var i = 0; i < 6; i++){ 
-      var productCard = document.createElement("section");
+      var productCard = document.createElement("section");      
+      var detailContainer = document.createElement("article");     
+      var productTitle = document.createElement("h5");     
+      var productImage = document.createElement("img");      
+      var productDescription = document.createElement("p");
+      var productPrice = document.createElement("p");
+      var btn = document.createElement('a');
+      
+
       productCard.setAttribute("class", "card col-12 col-md-4 col-lg-4 m-2 mx-auto");
-      var detailContainer = document.createElement("article");
       detailContainer.setAttribute('class', 'card-body');
-      var productTitle = document.createElement("h5");
       productTitle.setAttribute('class', 'card-title');
-      var productImage = document.createElement("img");
       productImage.setAttribute('width', '256');
       productImage.setAttribute('height', '256');
-      var productDescription = document.createElement("p");
       productDescription.setAttribute('class', 'card-text');
-      var btn = document.createElement('a')
+      productPrice.setAttribute('class', 'card-text')
       btn.setAttribute('class', 'btn btn-primary');
       btn.setAttribute('id', 'add-to-cart');
-
-      productTitle.textContent = 'product';
-      productImage.setAttribute('src', '');
-      productDescription.textContent = 'descr.';
+      
+      productTitle.textContent = allFetchedProducts[i].title;
+      productImage.setAttribute('src', allFetchedProducts[i].image);
+      productDescription.textContent = allFetchedProducts[i].description;
+      productPrice.textContent = allFetchedProducts[i].price;
+      detailContainer.setAttribute('id', allFetchedProducts[i].id)
       btn.textContent = 'add to cart';
+
+
 
 
       products.appendChild(productCard)
@@ -69,24 +97,26 @@ function generateCards(){
       detailContainer.appendChild(productImage)
       detailContainer.appendChild(productDescription)
       detailContainer.appendChild(btn)
-      
-    }  
-  
+      btn.addEventListener('click', saveToLocalStorage); //single product to cart
+    }
+    // addToCartBtn = document.querySelector('.btn');
+    // addToCartBtn.addEventListener('click', saveToLocalStorage); //single product to cart
+
 }
 
 
 
 // ** TODO ** when we close form, get rid of values entered
 // event listener to close the checkout form
-checkoutCloseEl.addEventListener('click', function() {
-  document.getElementById('card-form').style.display = "none";
-});
+//checkoutCloseEl.addEventListener('click', function() {
+  //document.getElementById('card-form').style.display = "none";
+//});
 
 // event listener to pull up form when clicking checkout button
-checkoutBtnEl.addEventListener('click', function() {
-  document.getElementById("card-form").style.display = "block";
+//checkoutBtnEl.addEventListener('click', function() {
+  //document.getElementById("card-form").style.display = "block";
  
-});
+//});
 
 
 //function weatherAPI(){
@@ -108,11 +138,4 @@ checkoutBtnEl.addEventListener('click', function() {
 
 
   
-  addToCartBtn.eventlistener ('click', saveToLocalStorage); //single product to cart
-    //are things in the cart?
-    //push item into an array
-    //add item to cart. (shoppingCart and product var.. maybe...)
-    
-
-
-  //} );
+   
