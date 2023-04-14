@@ -1,30 +1,15 @@
+var requestUrl = 'https://fakestoreapi.com/products';
 var checkoutBtnEl = document.querySelector('.checkout-btn');
 var checkoutCloseEl = document.querySelector('.btn-close');
+var products = document.querySelector('#products');
+var addToCartBtn = document.querySelector('.btn');
 
-////nav bar
- //location
-  //**assign to local storage for cart
- //name of site
- //cart (icon top right ish.. or link)
- 
-//body
- //products (look into using a bootstrap form )
-  // button that adds product to cart.
-  //description of product
-  //**two rows of cards. 4-6 items (more if needed, not using a form)
-//**store items in storage
-
-
-//API -
-
-//variables going to HTML tags
-var requestUrl = 'https://fakestoreapi.com/products';
+var userInputLocal;
 var cardBox = document.getElementById('.all-cards');
-
 
 var allFetchedProducts = [];
 var productList = [];
-var shoppingCart = [];
+var shoppingCartLocal = [];
 var product;
 
 //function start(){}
@@ -42,19 +27,53 @@ function getApi(requestUrl) {
   .then(function (data) {
     console.log(data);
     allFetchedProducts = data;
-    generateCards()
+    generateCards();
 
   });
+}
+function saveToLocalStorage(event){
+//store pro info then trans to 2nd page.
+event.preventDefault();
+
+
+
+
 }
 
 getApi(requestUrl);
 
 function generateCards(){
-    var sectionContainer = document.createElement("section")
-    sectionContainer.setAttribute("class", "all-cards")
 
     for(var i = 0; i < 6; i++){ 
-      var productName = document.createElement()
+      var productCard = document.createElement("section");
+      productCard.setAttribute("class", "card col-12 col-md-4 col-lg-4 m-2 mx-auto");
+      var detailContainer = document.createElement("article");
+      detailContainer.setAttribute('class', 'card-body');
+      var productTitle = document.createElement("h5");
+      productTitle.setAttribute('class', 'card-title');
+      var productImage = document.createElement("img");
+      productImage.setAttribute('width', '256');
+      productImage.setAttribute('height', '256');
+      var productDescription = document.createElement("p");
+      productDescription.setAttribute('class', 'card-text');
+      var btn = document.createElement('a')
+      btn.setAttribute('class', 'btn btn-primary');
+      btn.setAttribute('id', 'add-to-cart');
+
+      productTitle.textContent = 'product';
+      productImage.setAttribute('src', '');
+      productDescription.textContent = 'descr.';
+      btn.textContent = 'add to cart';
+
+
+      products.appendChild(productCard)
+      
+      productCard.appendChild(detailContainer)
+      detailContainer.appendChild(productTitle)
+      detailContainer.appendChild(productImage)
+      detailContainer.appendChild(productDescription)
+      detailContainer.appendChild(btn)
+      
     }
       
     
@@ -78,6 +97,7 @@ function generateCards(){
 }
 
 
+
 // ** TODO ** when we close form, get rid of values entered
 // event listener to close the checkout form
 checkoutCloseEl.addEventListener('click', function() {
@@ -87,6 +107,7 @@ checkoutCloseEl.addEventListener('click', function() {
 // event listener to pull up form when clicking checkout button
 checkoutBtnEl.addEventListener('click', function() {
   document.getElementById("card-form").style.display = "block";
+ 
 });
 
 
@@ -95,7 +116,8 @@ checkoutBtnEl.addEventListener('click', function() {
 //}
 
 
-//submitToCartBtn.eventlistener('click',  function(){ //sending to page 2
+//goToCartBtn.eventlistener('click', saveToLocalStorage);  //sending to page 2
+  
   //put into variables to local storage to pass to second page
   //sent to second HTML "href= URL or second page"
   //dynamically gen page(depending on HTML)
@@ -107,8 +129,8 @@ checkoutBtnEl.addEventListener('click', function() {
 
 
 
-  //})
-  //addToCartBtn.eventlistener ('click', function(){
+  
+  addToCartBtn.eventlistener ('click', saveToLocalStorage); //single product to cart
     //are things in the cart?
     //push item into an array
     //add item to cart. (shoppingCart and product var.. maybe...)
