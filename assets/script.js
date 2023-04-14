@@ -1,6 +1,6 @@
 var requestUrl = 'https://fakestoreapi.com/products';
 var checkoutBtnEl = document.querySelector('.checkout-btn');
-var checkoutCloseEl = document.querySelector('.btn-close');
+var checkoutCloseEl = document.querySelector('#card-form');
 var products = document.querySelector('#products');
 var addToCartBtn = document.querySelector('.btn');
 
@@ -34,10 +34,6 @@ function getApi(requestUrl) {
 function saveToLocalStorage(event){
 //store pro info then trans to 2nd page.
 event.preventDefault();
-
-
-
-
 }
 
 getApi(requestUrl);
@@ -74,25 +70,7 @@ function generateCards(){
       detailContainer.appendChild(productDescription)
       detailContainer.appendChild(btn)
       
-    }
-      
-    
-    
-    /*for (var i = 0; i < data.length; i++) {
-        var userName = document.createElement('h3');   creating tags for product name, price, image, discription
-        var issueTitle = document.createElement('p');   to display dynamically.
-        userName.textContent = data[i].user.login;    
-        issueTitle.textContent = data[i].title;
-        issueContainer.append(userName);
-        issueContainer.append(issueTitle);
-      }*/
-
-
-    // for the objects in the allFetchedProducts array
-    // i < 6
-    // set details about the product based on the object at allFetchedProducts[i]
-    // productList.push(allFetchedProducts[i])
-    
+    }  
   
 }
 
@@ -120,7 +98,7 @@ checkoutBtnEl.addEventListener('click', function() {
   
   //put into variables to local storage to pass to second page
   //sent to second HTML "href= URL or second page"
-  //dynamically gen page(depending on HTML)
+  
     //display cart items (from local storage)
     //display form for customer shipping/payment info 
     //call weatherAPI()  **possibly pass through info from form to select data from API;
