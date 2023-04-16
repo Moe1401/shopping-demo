@@ -17,8 +17,8 @@ var product;
 
 //function finalizePerchase(){
     //display thank you/continue shopping.
-
 //};
+
 function getApi(requestUrl) {
   fetch(requestUrl)
   .then(function (response) {
@@ -31,6 +31,7 @@ function getApi(requestUrl) {
 
   });
 }
+
 function saveToLocalStorage(event){
 //store prod info then trans to 2nd page.
  //are things in the cart? appending to array or push
@@ -44,10 +45,12 @@ function saveToLocalStorage(event){
   var productToBeSaved = allFetchedProducts.find(product => product.id == parentElement)
 
   console.log(productToBeSaved)
+
   shoppingCartLocal = JSON.parse(localStorage.getItem("cart-products"))
   if (shoppingCartLocal == null) {
     shoppingCartLocal = [];
   }
+
   shoppingCartLocal.push(productToBeSaved)
   localStorage.setItem('cart-products', JSON.stringify(shoppingCartLocal) )
   console.log(shoppingCartLocal)
@@ -89,7 +92,6 @@ function generateCards(){
 
 
 
-
       products.appendChild(productCard)
       
       productCard.appendChild(detailContainer)
@@ -101,7 +103,6 @@ function generateCards(){
     }
     // addToCartBtn = document.querySelector('.btn');
     // addToCartBtn.addEventListener('click', saveToLocalStorage); //single product to cart
-
 }
 
 
