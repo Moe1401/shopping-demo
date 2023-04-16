@@ -12,7 +12,7 @@ var checkoutBtnEl = document.querySelector('.checkout-btn');
 var homepageBtnEl;
 var checkoutCloseEl = document.querySelector('#card-form');
 var cartContainer = document.querySelector("#cart-rows")
-var productsExtractedFromLocalStorage = localStorage.getItem("cart-products");
+var productsExtractedFromLocalStorage = JSON.parse(localStorage.getItem("cart-products"));
     console.log(productsExtractedFromLocalStorage)
 
 
@@ -31,15 +31,30 @@ function generateCart() {
         var remove= document.createElement("button")
 
         productCart.setAttribute("id", "product-row")
-        productImage.setAttribute("id", "product-image")
-        icon.setAttribute ("src", "https://cdn.shopify.com/s/files/1/2382/0223/products/42127-1527888046_700x700.jpg?v=1571614304")
+        icon.setAttribute("id", "product-image")
+        icon.setAttribute ("src", productInCart.image)
         productName.setAttribute("id", "product-name")
         productPrice.setAttribute("id", "product-price")
         productBtn.setAttribute("id", "product-Btn")
-        remove.setAttribute("id", "remove")
+        remove.setAttribute("id", "remove") //localStorage.removeItem) 
+        console.log("hey world")
+
+        productName.textContent= productInCart.title;
+        productPrice.textContent= productInCart.price;
+        remove.textContent= "remove"
+
+        cartContainer.appendChild (productCart)
+        productCart.appendChild (productImage)
+        productImage.appendChild (icon)
+        productCart.appendChild (productName)
+        productCart.appendChild (productPrice)
+        productCart.appendChild (productBtn)
+        productBtn.appendChild (remove)
+    
+    
     }
 }
-
+generateCart()
 
 
 //removes corresponding product from the cart and local storage when clicked
