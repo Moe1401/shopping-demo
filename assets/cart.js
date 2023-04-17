@@ -1,3 +1,7 @@
+var checkoutCloseEl = document.querySelector('#close-btn');
+var checkoutBtnEl = document.querySelector('.checkout-btn');
+var cardFormEl = document.querySelector('#card-form')
+var cartContainer = document.querySelector("#cart-rows");
 
 //TODO:
 //Dynamically generate products in the cart (form)
@@ -6,16 +10,10 @@
 //Make a return to homepage button?
 //link this file to cart.html (and maybe index.html?)
 
-
 var checkoutCloseEl;
-var checkoutBtnEl = document.querySelector('.checkout-btn');
 var homepageBtnEl;
-var checkoutCloseEl = document.querySelector('#card-form');
-var cartContainer = document.querySelector("#cart-rows")
 var productsExtractedFromLocalStorage = JSON.parse(localStorage.getItem("cart-products"));
     console.log(productsExtractedFromLocalStorage)
-
-
 
 //Pulls the chosen products from local storage and dynamically generates them to a form
 function generateCart() {
