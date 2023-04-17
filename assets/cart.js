@@ -10,6 +10,7 @@ var cartContainer = document.querySelector("#cart-rows");
 //Make a return to homepage button?
 //link this file to cart.html (and maybe index.html?)
 
+var removeBtn;
 var checkoutCloseEl;
 var homepageBtnEl;
 var productsExtractedFromLocalStorage = JSON.parse(localStorage.getItem("cart-products"));
@@ -17,7 +18,7 @@ var productsExtractedFromLocalStorage = JSON.parse(localStorage.getItem("cart-pr
 
 //Pulls the chosen products from local storage and dynamically generates them to a form
 function generateCart() {
-
+    
     for (var x = 0; x < productsExtractedFromLocalStorage.length; x++) {
         var productInCart = productsExtractedFromLocalStorage[x];
         var productCart= document.createElement("tr")
@@ -34,21 +35,28 @@ function generateCart() {
         productName.setAttribute("id", "product-name")
         productPrice.setAttribute("id", "product-price")
         productBtn.setAttribute("id", "product-Btn")
-        remove.setAttribute("id", "remove") //localStorage.removeItem) 
+        remove.setAttribute("id", "remove") //localStorage.removeItem()
         console.log("hey world")
 
         productName.textContent= productInCart.title;
         productPrice.textContent= productInCart.price;
         remove.textContent= "remove"
 
-        cartContainer.appendChild (productCart)
-        productCart.appendChild (productImage)
-        productImage.appendChild (icon)
-        productCart.appendChild (productName)
-        productCart.appendChild (productPrice)
-        productCart.appendChild (productBtn)
-        productBtn.appendChild (remove)
-    
+        cartContainer.appendChild(productCart)
+        productCart.appendChild(productImage)
+        productImage.appendChild(icon)
+        productCart.appendChild(productName)
+        productCart.appendChild(productPrice)
+        productCart.appendChild(productBtn)
+        productBtn.appendChild(remove)
+        
+        remove.addEventListener("click", function(event) {
+            event.preventDefault();
+            removeBtn = document.querySelectorAll("#remove");
+            console.log("all", removeBtn)
+            console.log(event.target)
+            this.parentElement.parentElement.innerHTML = ""
+        })   
     
     }
 }
@@ -56,10 +64,10 @@ generateCart()
 
 
 //removes corresponding product from the cart and local storage when clicked
-addEventListener("click", function(event) {
-    event.target.id;
-    localStorage.removeItem("cart-products");
-})
+// addEventListener("click", function(event) {
+//     event.target.id;
+//     localStorage.removeItem("cart-products"[x]);
+// })
 
 
 
@@ -72,7 +80,7 @@ addEventListener("click", function(event) {
 
 // event listener to pull up form when clicking checkout button
 checkoutBtnEl.addEventListener('click', function() {
-document.getElementById("card-form").style.display = "block";
- 
+document.getElementById("card-form").style.display = "block"; 
 });
 
+// **DEBUGGING** cart products dont stay on page when navigating to homepage
