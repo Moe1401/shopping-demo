@@ -30,6 +30,7 @@ function getApi(requestUrl) {
   });
 }
 
+// Save ONE ITEM to local storage
 function saveToLocalStorage(event){
 //store prod info then trans to 2nd page.
  //are things in the cart? appending to array or push
@@ -50,12 +51,23 @@ function saveToLocalStorage(event){
   }
 
   shoppingCartLocal.push(productToBeSaved)
-  localStorage.setItem('cart-products', JSON.stringify(shoppingCartLocal) )
+  saveNewArrayToLocal(shoppingCartLocal)
   console.log(shoppingCartLocal)
-  
-
-
 }
+
+function saveNewArrayToLocal(array) {
+  localStorage.setItem('cart-products', JSON.stringify(array) )
+}
+
+
+function removeItemFromStorage(itemName) {
+  const newArray = myArrayofItemsInLocal.filter(item => item.name !== itemName)
+  saveNewArrayToLocal(newArray)
+}
+
+// [1, 2, 3, 4]
+// remove 3
+// [1, 2, 4]
 
 getApi(requestUrl);
 
@@ -102,21 +114,6 @@ function generateCards(){
     // addToCartBtn = document.querySelector('.btn');
     // addToCartBtn.addEventListener('click', saveToLocalStorage); //single product to cart
 }
-
-
-
-// ** TODO ** when we close form, get rid of values entered
-// event listener to close the checkout form
-//checkoutCloseEl.addEventListener('click', function() {
-  //document.getElementById('card-form').style.display = "none";
-//});
-
-// event listener to pull up form when clicking checkout button
-//checkoutBtnEl.addEventListener('click', function() {
-  //document.getElementById("card-form").style.display = "block";
- 
-//});
-
 
 //function weatherAPI(){
     //weather API info
