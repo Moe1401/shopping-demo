@@ -1,6 +1,4 @@
 var requestUrl = 'https://fakestoreapi.com/products';
-var checkoutBtnEl = document.querySelector('.checkout-btn');
-var checkoutCloseEl = document.querySelector('#card-form');
 var products = document.querySelector('#products');
 var addToCartBtn;
 
