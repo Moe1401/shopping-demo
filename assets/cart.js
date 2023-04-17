@@ -4,11 +4,9 @@ var cardFormEl = document.querySelector('#card-form')
 var cartContainer = document.querySelector("#cart-rows");
 
 //TODO:
-//Dynamically generate products in the cart (form)
-//Make a delete button for each product
 //Make a checkout/finalize purchase button
 //Make a return to homepage button?
-//link this file to cart.html (and maybe index.html?)
+
 
 var removeBtn;
 var checkoutCloseEl;
@@ -20,6 +18,7 @@ var productsExtractedFromLocalStorage = JSON.parse(localStorage.getItem("cart-pr
 function generateCart() {
     
     for (var x = 0; x < productsExtractedFromLocalStorage.length; x++) {
+        
         var productInCart = productsExtractedFromLocalStorage[x];
         var productCart= document.createElement("tr")
         var productImage= document.createElement("td")
@@ -36,7 +35,7 @@ function generateCart() {
         productPrice.setAttribute("id", "product-price")
         productBtn.setAttribute("id", "product-Btn")
         remove.setAttribute("id", "remove") //localStorage.removeItem()
-        console.log("hey world")
+        const title = productsExtractedFromLocalStorage[x].title
 
         productName.textContent= productInCart.title;
         productPrice.textContent= productInCart.price;
@@ -50,24 +49,18 @@ function generateCart() {
         productCart.appendChild(productBtn)
         productBtn.appendChild(remove)
         
+        //removes corresponding product from the cart and local storage when clicked
         remove.addEventListener("click", function(event) {
             event.preventDefault();
-            removeBtn = document.querySelectorAll("#remove");
-            console.log("all", removeBtn)
-            console.log(event.target)
             this.parentElement.parentElement.innerHTML = ""
+            console.log(title)
+            removeItemFromStorage(title);
         })   
-    
     }
 }
+
 generateCart()
 
-
-//removes corresponding product from the cart and local storage when clicked
-// addEventListener("click", function(event) {
-//     event.target.id;
-//     localStorage.removeItem("cart-products"[x]);
-// })
 
 
 

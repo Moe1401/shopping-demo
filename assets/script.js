@@ -56,12 +56,15 @@ function saveToLocalStorage(event){
 }
 
 function saveNewArrayToLocal(array) {
-  localStorage.setItem('cart-products', JSON.stringify(array) )
+  localStorage.setItem('cart-products', JSON.stringify(array))
 }
 
-
 function removeItemFromStorage(itemName) {
-  const newArray = myArrayofItemsInLocal.filter(item => item.name !== itemName)
+  var cartChanger = JSON.parse(localStorage.getItem("cart-products"));
+  const newArray = cartChanger.filter(item => {
+    console.log(item.title, itemName)
+    return item.title !== itemName
+  });
   saveNewArrayToLocal(newArray)
 }
 
