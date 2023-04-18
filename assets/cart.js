@@ -1,12 +1,21 @@
+// variables for the checkout buttons (close, Checkout, Submit)
 var checkoutCloseEl = document.querySelector('#close-btn');
 var checkoutBtnEl = document.querySelector('.checkout-btn');
-var cardFormEl = document.querySelector('#card-form')
+var checkoutSubmit = document.querySelector("button[type='submit']");
+
+// container for products in cart
 var cartContainer = document.querySelector("#cart-rows");
 
-//TODO:
-//Make a checkout/finalize purchase button
-//Make a return to homepage button?
+// variables for checkout inputs
+var firstName = document.querySelector('#validationDefault01');
+var lastName = document.querySelector('#validationDefault02');
+var username = document.querySelector('#validationDefaultUsername');
+var city = document.querySelector('#validationDefault03');
+var state = document.querySelector('#validationDefault04');
+var zip = document.querySelector('#validationDefault05');
+var checkAgreement = document.querySelector('#invalidCheck2');
 
+var formArray = [firstName, lastName, username, city, state, zip];
 
 var removeBtn;
 var checkoutCloseEl;
@@ -16,9 +25,8 @@ var productsExtractedFromLocalStorage = JSON.parse(localStorage.getItem("cart-pr
 
 //Pulls the chosen products from local storage and dynamically generates them to a form
 function generateCart() {
-    
     for (var x = 0; x < productsExtractedFromLocalStorage.length; x++) {
-        
+        // creates cart elements
         var productInCart = productsExtractedFromLocalStorage[x];
         var productCart= document.createElement("tr")
         var productImage= document.createElement("td")
@@ -28,19 +36,17 @@ function generateCart() {
         var productBtn= document.createElement("td")
         var remove= document.createElement("button")
 
-        productCart.setAttribute("id", "product-row")
+        // sets cart elements
         icon.setAttribute("id", "product-image")
         icon.setAttribute ("src", productInCart.image)
-        productName.setAttribute("id", "product-name")
-        productPrice.setAttribute("id", "product-price")
-        productBtn.setAttribute("id", "product-Btn")
-        remove.setAttribute("id", "remove") //localStorage.removeItem()
-        const title = productsExtractedFromLocalStorage[x].title
 
-        productName.textContent= productInCart.title;
-        productPrice.textContent= productInCart.price;
-        remove.textContent= "remove"
+        const title = productsExtractedFromLocalStorage[x].title;
 
+        productName.textContent = productInCart.title;
+        productPrice.textContent = priceFormatUSD(productInCart.price); // priceFormatUSD in script.js
+        remove.textContent = "Remove";
+
+        // appends product info to cart
         cartContainer.appendChild(productCart)
         productCart.appendChild(productImage)
         productImage.appendChild(icon)
@@ -52,28 +58,91 @@ function generateCart() {
         //removes corresponding product from the cart and local storage when clicked
         remove.addEventListener("click", function(event) {
             event.preventDefault();
-            this.parentElement.parentElement.innerHTML = ""
-            console.log(title)
+            this.parentElement.parentElement.innerHTML = "";
+            console.log(title);
             removeItemFromStorage(title);
         })   
     }
 }
 
-generateCart()
+generateCart();
 
 
+// checks if form has been fully filled out
+function formCheck() {
+    // console.log(checkAgreement.checked)
+    // console.log(checkAgreement.value);
+    
+    // returns true when ALL form values have been filled & agreement has been checked 
 
+    /* for (var i = 0; i < formArray.length; i++) {
+        if (formArray[i].value === "" || checkAgreement.checked === false) {  
+            return false;
+        } else {
+            return true;
+        }
+    } */
+    /* for (var i in formArray) {
+        if (formArray[i].value === "" || checkAgreement.checked === false) {  
+            return false;
+        } else {
+            return true;
+        }
+    } */
+    if (firstName.value === "" || lastName.value === "" || username.value === "" || city.value === "" || state.value === "" || zip.value === "" || checkAgreement.checked === false) {  
+        return false;
+    } else {
+        return true;
+    }
+}
+
+// appends "thank you" message beneath cart
+function thankYouMessage() {
+    var thankYouContainer = document.createElement("div");
+    var message = document.createElement("h2");
+
+    thankYouContainer.className = "text-center";
+    message.textContent = "Thank you for shopping!";
+
+    document.body.appendChild(thankYouContainer);
+    thankYouContainer.appendChild(message);
+}
+
+// after 3 seconds, automatically return to homepage
+function returnToHomepage() {
+    var seconds = 3;
+
+    var timerInterval = setInterval(function() {
+        seconds--;
+        console.log(seconds);
+        if(seconds === 0) {
+            // Stops execution of action at set interval
+            clearInterval(timerInterval);
+            document.location.href = "./index.html";
+        }
+    }, 1000);
+}
 
 
  //TODO ** when we close form, get rid of values entered
  //event listener to close the checkout form
- checkoutCloseEl.addEventListener('click', function() {
-  document.getElementById('card-form').style.display = "none";
+checkoutCloseEl.addEventListener('click', function() {
+    document.getElementById('card-form').style.display = "none";
 });
 
 // event listener to pull up form when clicking checkout button
 checkoutBtnEl.addEventListener('click', function() {
-document.getElementById("card-form").style.display = "block"; 
+    document.getElementById("card-form").style.display = "block"; 
 });
 
-// **DEBUGGING** cart products dont stay on page when navigating to homepage
+// once form is filled out, removes the local cart's contents, sends a "Thank You!" message, and redirects to the home page after 3 seconds
+checkoutSubmit.addEventListener('click', function(event) {
+    event.preventDefault();
+
+    if (formCheck() === true) {
+        localStorage.removeItem("cart-products");
+        document.getElementById('card-form').style.display = "none";
+        thankYouMessage();
+        returnToHomepage();
+    }
+});
