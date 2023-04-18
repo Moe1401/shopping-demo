@@ -101,16 +101,29 @@ function thankYouMessage() {
     var thankYouContainer = document.createElement("div");
     var message = document.createElement("h2");
 
+    var pawIcon = document.createElement('i');
+    pawIcon.setAttribute('class', "fa-solid fa-paw fa-bounce fa-2xl"); // new tech
+
+    var pawIcon2 = document.createElement('i');
+    pawIcon2.setAttribute('class', "fa-solid fa-paw fa-bounce fa-2xl");
+    // pawIcon.setAttribute('style', 'width: 100px');
+    // pawIcon.setAttribute('style', 'height: 100px');
+    // pawIcon2.setAttribute('style', 'width: 100px');
+    // pawIcon2.setAttribute('style', 'height: 100px');
+
     thankYouContainer.className = "text-center";
     message.textContent = "Thank you for shopping!";
 
     document.body.appendChild(thankYouContainer);
     thankYouContainer.appendChild(message);
+
+    thankYouContainer.appendChild(pawIcon);
+    thankYouContainer.appendChild(pawIcon2);
 }
 
 // after 3 seconds, automatically return to homepage
 function returnToHomepage() {
-    var seconds = 3;
+    var seconds = 5;
 
     var timerInterval = setInterval(function() {
         seconds--;
@@ -122,7 +135,6 @@ function returnToHomepage() {
         }
     }, 1000);
 }
-
 
  //TODO ** when we close form, get rid of values entered
  //event listener to close the checkout form
