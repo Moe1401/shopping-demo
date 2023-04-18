@@ -21,10 +21,12 @@ var removeBtn;
 var checkoutCloseEl;
 var homepageBtnEl;
 var productsExtractedFromLocalStorage = JSON.parse(localStorage.getItem("cart-products"));
-    console.log(productsExtractedFromLocalStorage)
 
 //Pulls the chosen products from local storage and dynamically generates them to a form
 function generateCart() {
+    if (productsExtractedFromLocalStorage == null) {
+        return;
+    }
     for (var x = 0; x < productsExtractedFromLocalStorage.length; x++) {
         // creates cart elements
         var productInCart = productsExtractedFromLocalStorage[x];
@@ -59,7 +61,6 @@ function generateCart() {
         remove.addEventListener("click", function(event) {
             event.preventDefault();
             this.parentElement.parentElement.innerHTML = "";
-            console.log(title);
             removeItemFromStorage(title);
         })   
     }
@@ -70,25 +71,6 @@ generateCart();
 
 // checks if form has been fully filled out
 function formCheck() {
-    // console.log(checkAgreement.checked)
-    // console.log(checkAgreement.value);
-    
-    // returns true when ALL form values have been filled & agreement has been checked 
-
-    /* for (var i = 0; i < formArray.length; i++) {
-        if (formArray[i].value === "" || checkAgreement.checked === false) {  
-            return false;
-        } else {
-            return true;
-        }
-    } */
-    /* for (var i in formArray) {
-        if (formArray[i].value === "" || checkAgreement.checked === false) {  
-            return false;
-        } else {
-            return true;
-        }
-    } */
     if (firstName.value === "" || lastName.value === "" || username.value === "" || city.value === "" || state.value === "" || zip.value === "" || checkAgreement.checked === false) {  
         return false;
     } else {
@@ -102,14 +84,14 @@ function thankYouMessage() {
     var message = document.createElement("h2");
 
     var pawIcon = document.createElement('i');
-    pawIcon.setAttribute('class', "fa-solid fa-paw fa-bounce fa-2xl"); // new tech
-
     var pawIcon2 = document.createElement('i');
+
+    // new tech via Font Awesome
+    // adds animated paw icons
+    pawIcon.setAttribute('class', "fa-solid fa-paw fa-bounce fa-2xl");
     pawIcon2.setAttribute('class', "fa-solid fa-paw fa-bounce fa-2xl");
-    // pawIcon.setAttribute('style', 'width: 100px');
-    // pawIcon.setAttribute('style', 'height: 100px');
-    // pawIcon2.setAttribute('style', 'width: 100px');
-    // pawIcon2.setAttribute('style', 'height: 100px');
+    pawIcon.setAttribute('style', 'margin: 4px; margin-top: 24px; margin-bottom: 60px')
+    pawIcon2.setAttribute('style', 'margin: 4px; margin-top: 24px; margin-bottom: 60px')
 
     thankYouContainer.className = "text-center";
     message.textContent = "Thank you for shopping!";
@@ -123,11 +105,11 @@ function thankYouMessage() {
 
 // after 3 seconds, automatically return to homepage
 function returnToHomepage() {
-    var seconds = 5;
+    var seconds = 7;
 
     var timerInterval = setInterval(function() {
         seconds--;
-        console.log(seconds);
+
         if(seconds === 0) {
             // Stops execution of action at set interval
             clearInterval(timerInterval);
@@ -136,7 +118,6 @@ function returnToHomepage() {
     }, 1000);
 }
 
- //TODO ** when we close form, get rid of values entered
  //event listener to close the checkout form
 checkoutCloseEl.addEventListener('click', function() {
     document.getElementById('card-form').style.display = "none";
