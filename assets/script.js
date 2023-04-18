@@ -87,11 +87,12 @@ function generateCards(){
       
 
       productCard.setAttribute("class", "card col-12 col-md-4 col-lg-4 m-2 mx-auto");
+      productCard.setAttribute("style", "width: 400px")
       detailContainer.setAttribute('class', 'card-body');
       productTitle.setAttribute('class', 'card-title mb-4');
       productImage.setAttribute('class', 'img-thumbnail');
-      /* productImage.setAttribute('width', '256');
-      productImage.setAttribute('height', '256'); */
+      productImage.setAttribute('width', '256px');
+      productImage.setAttribute('height', '256px');
       productDescription.setAttribute('class', 'card-text');
       productPrice.setAttribute('class', 'card-text')
       btn.setAttribute('class', 'btn btn-primary');
