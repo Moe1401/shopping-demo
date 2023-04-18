@@ -10,13 +10,6 @@ var productList = [];
 var shoppingCartLocal;
 var product;
 
-//function start(){}
-  //call other functions....
-
-//function finalizePerchase(){
-    //display thank you/continue shopping.
-//};
-
 function getApi(requestUrl) {
   fetch(requestUrl)
   .then(function (response) {
@@ -26,9 +19,14 @@ function getApi(requestUrl) {
     console.log(data);
     allFetchedProducts = data;
     generateCards();
-
   });
 }
+
+
+//TODO:
+// polish checkout? ("Field is required" prompt does not appear)
+// polish product cards (constrain card size, limit image size, keep button & description at the bottom...)
+
 
 // Save ONE ITEM to local storage
 function saveToLocalStorage(event){
@@ -36,23 +34,25 @@ function saveToLocalStorage(event){
  //are things in the cart? appending to array or push
     //push item into an array then,
     //add item to cart. (shoppingCart and product var.. maybe...)
-    
   event.preventDefault();
+
+  // upon clicking "Add to Cart", obtains ID of the product to search in allFetchedProducts catalogue
   var parentElement = event.target.parentElement.id;
-  console.log(parentElement)
-  console.log(allFetchedProducts)
+  // console.log(parentElement)
+  // console.log(allFetchedProducts)
+  // searches allFetchedProducts for the chosen ID value; saves the corresponding product
   var productToBeSaved = allFetchedProducts.find(product => product.id == parentElement)
 
-  console.log(productToBeSaved)
+  // console.log(productToBeSaved)
 
+  // obtains currently stored local cart, appends the new value, & sends it to the local cart
   shoppingCartLocal = JSON.parse(localStorage.getItem("cart-products"))
   if (shoppingCartLocal == null) {
     shoppingCartLocal = [];
   }
-
   shoppingCartLocal.push(productToBeSaved)
   saveNewArrayToLocal(shoppingCartLocal)
-  console.log(shoppingCartLocal)
+  // console.log(shoppingCartLocal)
 }
 
 function saveNewArrayToLocal(array) {
@@ -88,34 +88,46 @@ function generateCards(){
 
       productCard.setAttribute("class", "card col-12 col-md-4 col-lg-4 m-2 mx-auto");
       detailContainer.setAttribute('class', 'card-body');
-      productTitle.setAttribute('class', 'card-title');
-      productImage.setAttribute('width', '256');
-      productImage.setAttribute('height', '256');
+      productTitle.setAttribute('class', 'card-title mb-4');
+      productImage.setAttribute('class', 'img-thumbnail');
+      /* productImage.setAttribute('width', '256');
+      productImage.setAttribute('height', '256'); */
       productDescription.setAttribute('class', 'card-text');
       productPrice.setAttribute('class', 'card-text')
       btn.setAttribute('class', 'btn btn-primary');
       btn.setAttribute('id', 'add-to-cart');
+
+      
       
       productTitle.textContent = allFetchedProducts[i].title;
       productImage.setAttribute('src', allFetchedProducts[i].image);
       productDescription.textContent = allFetchedProducts[i].description;
-      productPrice.textContent = allFetchedProducts[i].price;
+      productPrice.textContent = priceFormatUSD(allFetchedProducts[i].price); // price text = price number formatted in USD
       detailContainer.setAttribute('id', allFetchedProducts[i].id)
-      btn.textContent = 'add to cart';
+      btn.textContent = 'Add to Cart';
 
 
-
+      // appends product info 'i' times
       products.appendChild(productCard)
-      
       productCard.appendChild(detailContainer)
       detailContainer.appendChild(productTitle)
       detailContainer.appendChild(productImage)
       detailContainer.appendChild(productDescription)
+      detailContainer.appendChild(productPrice)
       detailContainer.appendChild(btn)
       btn.addEventListener('click', saveToLocalStorage); //single product to cart
     }
-    // addToCartBtn = document.querySelector('.btn');
-    // addToCartBtn.addEventListener('click', saveToLocalStorage); //single product to cart
+}
+
+// converts product's price to USD format
+function priceFormatUSD(price) {
+  // Intl.NumberFormat() - method variable that gives currency formatting to numbers
+  const usd = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  });
+
+  return usd.format(price); // formats the price to USD
 }
 
 //function weatherAPI(){
@@ -133,8 +145,3 @@ function generateCards(){
     //call weatherAPI()  **possibly pass through info from form to select data from API;
     //call function to submitBtn() to display display "thank you for perchase" AND potential "home screen"/"continue shopping" button/link
     //finalizePerchase();
-
-
-
-  
-   
