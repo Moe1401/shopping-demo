@@ -16,17 +16,10 @@ function getApi(requestUrl) {
     return response.json();
   })
   .then(function (data) {
-    console.log(data);
     allFetchedProducts = data;
     generateCards();
   });
 }
-
-
-//TODO:
-// polish checkout? ("Field is required" prompt does not appear)
-// polish product cards (constrain card size, limit image size, keep button & description at the bottom...)
-
 
 // Save ONE ITEM to local storage
 function saveToLocalStorage(event){
@@ -38,12 +31,10 @@ function saveToLocalStorage(event){
 
   // upon clicking "Add to Cart", obtains ID of the product to search in allFetchedProducts catalogue
   var parentElement = event.target.parentElement.id;
-  // console.log(parentElement)
-  // console.log(allFetchedProducts)
+
   // searches allFetchedProducts for the chosen ID value; saves the corresponding product
   var productToBeSaved = allFetchedProducts.find(product => product.id == parentElement)
 
-  // console.log(productToBeSaved)
 
   // obtains currently stored local cart, appends the new value, & sends it to the local cart
   shoppingCartLocal = JSON.parse(localStorage.getItem("cart-products"))
@@ -52,7 +43,6 @@ function saveToLocalStorage(event){
   }
   shoppingCartLocal.push(productToBeSaved)
   saveNewArrayToLocal(shoppingCartLocal)
-  // console.log(shoppingCartLocal)
 }
 
 function saveNewArrayToLocal(array) {
@@ -62,21 +52,16 @@ function saveNewArrayToLocal(array) {
 function removeItemFromStorage(itemName) {
   var cartChanger = JSON.parse(localStorage.getItem("cart-products"));
   const newArray = cartChanger.filter(item => {
-    console.log(item.title, itemName)
     return item.title !== itemName
   });
   saveNewArrayToLocal(newArray)
 }
 
-// [1, 2, 3, 4]
-// remove 3
-// [1, 2, 4]
-
 getApi(requestUrl);
 
 function generateCards(){
 
-    for(var i = 0; i < 6; i++){ 
+    for(var i = 0; i < allFetchedProducts.length; i++){ 
       var productCard = document.createElement("section");      
       var detailContainer = document.createElement("article");     
       var productTitle = document.createElement("h5");     
@@ -107,16 +92,17 @@ function generateCards(){
       detailContainer.setAttribute('id', allFetchedProducts[i].id)
       btn.textContent = 'Add to Cart';
 
-
       // appends product info 'i' times
-      products.appendChild(productCard)
-      productCard.appendChild(detailContainer)
-      detailContainer.appendChild(productTitle)
-      detailContainer.appendChild(productImage)
-      detailContainer.appendChild(productDescription)
-      detailContainer.appendChild(productPrice)
-      detailContainer.appendChild(btn)
-      btn.addEventListener('click', saveToLocalStorage); //single product to cart
+      if (products != null) {
+        products.appendChild(productCard)
+        productCard.appendChild(detailContainer)
+        detailContainer.appendChild(productTitle)
+        detailContainer.appendChild(productImage)
+        detailContainer.appendChild(productDescription)
+        detailContainer.appendChild(productPrice)
+        detailContainer.appendChild(btn)
+        btn.addEventListener('click', saveToLocalStorage); //single product to cart
+      }
     }
 }
 
@@ -130,19 +116,3 @@ function priceFormatUSD(price) {
 
   return usd.format(price); // formats the price to USD
 }
-
-//function weatherAPI(){
-    //weather API info
-//}
-
-
-//goToCartBtn.eventlistener('click', saveToLocalStorage);  //sending to page 2
-  
-  //put into variables to local storage to pass to second page
-  //sent to second HTML "href= URL or second page"
-  
-    //display cart items (from local storage)
-    //display form for customer shipping/payment info 
-    //call weatherAPI()  **possibly pass through info from form to select data from API;
-    //call function to submitBtn() to display display "thank you for perchase" AND potential "home screen"/"continue shopping" button/link
-    //finalizePerchase();
